@@ -9,9 +9,10 @@ public class B1c2 {
         for (int i = 0; i < 4; i++) {
             A[i] = scn.nextInt();
         }
-        Arrays.sort(A);                
+        Arrays.sort(A);
         System.out.println("Max1: " + A[3]);
         System.out.println("Max2: " + A[2]);
         scn.close();
     }
 }
+
