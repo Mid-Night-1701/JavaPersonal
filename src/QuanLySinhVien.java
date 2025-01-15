@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class Sucvat {
+public class QuanLySinhVien {
     public static void main(String[] args) {
         ArrayList<SinhVien> list = new ArrayList<>();
         try (Scanner scn = new Scanner(System.in)) {
