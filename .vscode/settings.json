@@ -1,9 +1,11 @@
 {
-    "java.project.sourcePaths": [
-        "src"
-    ],
-    "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar"
-    ]
+  "java.project.sourcePaths": ["src"],
+  "java.project.outputPath": "bin",
+  "java.project.referencedLibraries": ["lib/**/*.jar"],
+  
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "prettier.trailingComma": "all"
 }
