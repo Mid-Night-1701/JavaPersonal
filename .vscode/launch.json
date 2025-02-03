@@ -1,0 +1,83 @@
+{
+    "version": "0.2.0",
+    "configurations": [        
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "JavaPersonal_af085bfa"
+        },
+        {
+            "type": "java",
+            "name": "B1c1",
+            "request": "launch",
+            "mainClass": "B1c1",
+            "projectName": "JavaPersonal_af085bfa"
+        },
+        {
+            "type": "java",
+            "name": "B1c2",
+            "request": "launch",
+            "mainClass": "B1c2",
+            "projectName": "JavaPersonal_af085bfa"
+        },
+        {
+            "type": "java",
+            "name": "B1th1",
+            "request": "launch",
+            "mainClass": "B1th1",
+            "projectName": "JavaPersonal_af085bfa"
+        },
+        {
+            "type": "java",
+            "name": "B1th2",
+            "request": "launch",
+            "mainClass": "B1th2",
+            "projectName": "JavaPersonal_af085bfa"
+        },
+        {
+            "type": "java",
+            "name": "BatPhan",
+            "request": "launch",
+            "mainClass": "BatPhan",
+            "projectName": "JavaPersonal_af085bfa"
+        },
+        {
+            "type": "java",
+            "name": "HelloWorld",
+            "request": "launch",
+            "mainClass": "HelloWorld",
+            "projectName": "JavaPersonal_af085bfa",
+            "vmArgs":"--module-path \"C:/Program Files/Java/javafx-sdk-21.0.6/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "Prime",
+            "request": "launch",
+            "mainClass": "Prime",
+            "projectName": "JavaPersonal_af085bfa"
+        },
+        {
+            "type": "java",
+            "name": "QuanLySinhVien",
+            "request": "launch",
+            "mainClass": "QuanLySinhVien",
+            "projectName": "JavaPersonal_af085bfa"
+        },
+        {
+            "type": "java",
+            "name": "Helloworld",
+            "request": "launch",
+            "mainClass": "tesst.Helloworld",
+            "projectName": "JavaPersonal_af085bfa",
+            "vmArgs":"--module-path \"C:/Program Files/Java/javafx-sdk-21.0.6/lib\" --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+}

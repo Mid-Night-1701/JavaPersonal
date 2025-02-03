@@ -7,5 +7,5 @@
   "prettier.singleQuote": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
-  "prettier.trailingComma": "all"
+  "prettier.trailingComma": "all",
 }
