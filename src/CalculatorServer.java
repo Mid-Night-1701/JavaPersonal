@@ -13,8 +13,7 @@ public class CalculatorServer {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         server.createContext("/", new RootHandler());
         server.createContext("/calculate", new CalculatorHandler());
-        server.setExecutor(null); // default executor
-        server.start();
+        server.setExecutor(null);
         System.out.println("Server started on port 8000");
     }
 
@@ -22,11 +21,13 @@ public class CalculatorServer {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             if ("GET".equals(exchange.getRequestMethod())) {
-                String response = new String(Files.readAllBytes(Paths.get("web/index.html")));
+                String response = new String(Files.readAllBytes(Paths.get("../web/index.html")));
                 exchange.sendResponseHeaders(200, response.length());
-                OutputStream os = exchange.getResponseBody();
-                os.write(response.getBytes());
-                os.close();
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response.getBytes());
+                }
+            } else {
+                exchange.sendResponseHeaders(405, -1);
             }
         }
     }
@@ -35,36 +36,44 @@ public class CalculatorServer {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             if ("POST".equals(exchange.getRequestMethod())) {
-                Scanner scanner = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
-                String requestBody = scanner.hasNext() ? scanner.next() : "";
+                String requestBody;
+                try (Scanner scanner = new Scanner(exchange.getRequestBody()).useDelimiter("\\A")) {
+                    requestBody = scanner.hasNext() ? scanner.next() : "";
+                }
                 String[] parts = requestBody.split("&");
                 double result = 0;
+                boolean validRequest = true;
                 try {
                     double num1 = Double.parseDouble(parts[0].split("=")[1]);
                     String operator = parts[1].split("=")[1];
                     double num2 = Double.parseDouble(parts[2].split("=")[1]);
-                    switch (operator) {
-                        case "add":
-                            result = num1 + num2;
-                            break;
-                        case "subtract":
-                            result = num1 - num2;
-                            break;
-                        case "multiply":
-                            result = num1 * num2;
-                            break;
-                        case "divide":
-                            result = num1 / num2;
-                            break;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    result = switch (operator) {
+                        case "add" -> num1 + num2;
+                        case "subtract" -> num1 - num2;
+                        case "multiply" -> num1 * num2;
+                        case "divide" -> {
+                            if (num2 != 0) {
+                                yield num1 / num2;
+                            } else {
+                                validRequest = false;
+                                yield 0;
+                            }
+                        }
+                        default -> {
+                            validRequest = false;
+                            yield 0;
+                        }
+                    };
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    validRequest = false;
                 }
-                String response = String.valueOf(result);
-                exchange.sendResponseHeaders(200, response.length());
-                OutputStream os = exchange.getResponseBody();
-                os.write(response.getBytes());
-                os.close();
+                String response = validRequest ? String.valueOf(result) : "Invalid request";
+                exchange.sendResponseHeaders(validRequest ? 200 : 400, response.length());
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response.getBytes());
+                }
+            } else {
+                exchange.sendResponseHeaders(405, -1);
             }
         }
     }
